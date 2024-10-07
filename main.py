@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QApplication, QTabWidget, QWidget, QFileDialog, QLineEdit, QVBoxLayout, QSpinBox
+from PyQt6.QtWidgets import QApplication, QTabWidget, QWidget, QFileDialog, QLineEdit, QVBoxLayout, QSpinBox, \
+    QPushButton, QTextEdit
 from PyQt6.QtWidgets import QLabel
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QAction, QPixmap
@@ -10,6 +11,7 @@ class Window(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.fileName = None
+        self.fileNameG = None
         self.setWindowTitle('PyQt6 Lab')
         self.setGeometry(100, 100, 600, 400)
         self.move(60, 15)
@@ -29,11 +31,42 @@ class Window(QMainWindow):
         self.actionExit.triggered.connect(self.close)
         self.fileMenu.addAction(self.actionExit)
 
-        # Dodanie opcji do wyboru obrazu
-        self.actionChooseImg = QAction('Choose img', self)
+
+
+        self.task1menu = self.menu.addMenu("Task1")
+        self.actionChooseImg = QAction('Open', self)
         self.actionChooseImg.setShortcut('Ctrl+A')
         self.actionChooseImg.triggered.connect(self.getFile)
-        self.fileMenu.addAction(self.actionChooseImg)
+        self.task1menu.addAction(self.actionChooseImg)
+
+        self.task2menu = self.menu.addMenu("Task2")
+
+        self.actionClearTxt = QAction('Clear', self)
+        self.actionClearTxt.triggered.connect(self.clearText)
+        self.actionClearTxt.setShortcut('Ctrl+1')
+
+        self.actionOpenTxt = QAction('Open', self)
+        self.actionOpenTxt.triggered.connect(self.openFile)
+        self.actionOpenTxt.setShortcut('Ctrl+2')
+
+        self.actionSaveTxt = QAction('Save', self)
+        self.actionSaveTxt.triggered.connect(self.saveFileSame)
+        self.actionSaveTxt.setShortcut('Ctrl+3')
+
+        self.actionSaveAsTxt = QAction('Save as', self)
+        self.actionSaveAsTxt.triggered.connect(self.saveFile)
+        self.actionSaveAsTxt.setShortcut('Ctrl+4')
+
+        self.task2menu.addAction(self.actionClearTxt)
+        self.task2menu.addAction(self.actionOpenTxt)
+        self.task2menu.addAction(self.actionSaveTxt)
+        self.task2menu.addAction(self.actionSaveAsTxt)
+
+        self.task3menu = self.menu.addMenu("Task3")
+        self.actionClearTask3 = QAction('Clear', self)
+        self.actionClearTask3.triggered.connect(self.clearAll3)
+        self.actionClearTask3.setShortcut('Ctrl+5')
+        self.task3menu.addAction(self.actionClearTask3)
 
     # Funkcja dodająca widżety do okna
     def createTabs(self):
@@ -79,9 +112,62 @@ class Window(QMainWindow):
         resultWidget.setLayout(layout)
         return resultWidget
 
-    # Zakładka 2 - Pole tekstowe
+
+    # Zakładka 2 - Prostota notatnika
     def createTab2(self):
-        return QLineEdit()
+        tab = QWidget()
+        layout = QVBoxLayout()
+
+        # Pole tekstowe do wyświetlania i edytowania tekstu
+        self.textEdit = QTextEdit()
+        layout.addWidget(self.textEdit)
+
+        # Przycisk "Otwórz plik"
+        openButton = QPushButton("Otwórz plik")
+        openButton.clicked.connect(self.openFile)
+        layout.addWidget(openButton)
+
+        # Przycisk "Zapisz plik"
+        saveButton = QPushButton("Zapisz plik")
+        saveButton.clicked.connect(self.saveFile)
+        layout.addWidget(saveButton)
+
+        # Przycisk "Wyczyść notatnik"
+        clearButton = QPushButton("Wyczyść notatnik")
+        clearButton.clicked.connect(self.clearText)
+        layout.addWidget(clearButton)
+
+        tab.setLayout(layout)
+        return tab
+
+    # Funkcja otwierania pliku
+    def openFile(self):
+        # Otwieranie pliku tekstowego
+        fileName, _ = QFileDialog.getOpenFileName(self, "Otwórz plik", "", "Pliki tekstowe (*.txt)")
+        self.fileNameG = fileName
+        if fileName:
+            with open(fileName, 'r') as file:
+                content = file.read()
+                self.textEdit.setText(content)
+
+    # Funkcja zapisu pliku
+    def saveFile(self):
+        # Zapis zawartości do pliku tekstowego
+        fileName, _ = QFileDialog.getSaveFileName(self, "Zapisz plik", "", "Pliki tekstowe (*.txt)")
+        if fileName:
+            with open(fileName, 'w') as file:
+                content = self.textEdit.toPlainText()
+                file.write(content)
+
+    # Funkcja czyszczenia pola tekstowego
+    def clearText(self):
+        self.textEdit.clear()
+
+    def saveFileSame(self):
+        if self.fileNameG:
+            with open(self.fileNameG, 'w') as file:
+                content = self.textEdit.toPlainText()
+                file.write(content)
 
     # Zakładka 3 - Tworzenie pól A, B, C i wyniku
     def createTab3(self):
@@ -115,6 +201,12 @@ class Window(QMainWindow):
 
         tab.setLayout(layout)
         return tab
+
+    def clearAll3(self):
+        self.textA.clear()
+        self.textB.clear()
+        self.numC.clear()
+        self.resultField.clear()
 
     # Funkcja aktualizująca wynik w polu wynikowym
     def updateResult(self):
