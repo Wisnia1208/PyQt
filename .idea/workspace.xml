@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="556a326a-5da0-4ef4-9c73-837569dcc4f4" name="Changes" comment="dodano przykłądy">
+    <list default="true" id="556a326a-5da0-4ef4-9c73-837569dcc4f4" name="Changes" comment="wyjebano django">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hos.py" beforeDir="false" afterPath="$PROJECT_DIR$/hos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728305048348</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="wyjebano django">
+      <option name="closed" value="true" />
+      <created>1728305372053</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728305372053</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,16 +129,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1st" />
     <MESSAGE value="dodano przykłądy" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodano przykłądy" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hos.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="wyjebano django" />
+    <option name="LAST_COMMIT_MESSAGE" value="wyjebano django" />
   </component>
 </project>
